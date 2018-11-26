@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
   s.name         = "ZHVolumeView"
   s.version      = "1.0.0"
-  s.summary      = "ZHVolumeView is a simple demo for volume adjustment"
+  s.summary      = "ZHVolumeView ."
 
   s.description  = <<-DESC
 			ZHVolumeView is a simple demo for volume adjustment
