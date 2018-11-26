@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ZHVolumeView"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "ZHVolumeView ."
 
   s.description  = <<-DESC
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
   s.author       = { "linzuhan" => "767678362@qq.com" }
-  s.platform     = :ios, "6.0"
+  s.platform     = :ios, "7.0"
 
 
   s.source        = { :git => "https://github.com/ZuhanLin/ZHVolumeView.git", :tag => "#{s.version}" }
