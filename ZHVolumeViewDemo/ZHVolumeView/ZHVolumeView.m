@@ -65,6 +65,7 @@
     // init volumeProgressView
     self.volumeProgressView = [[UIProgressView alloc] init];
     self.volumeProgressView.tintColor = [UIColor whiteColor];
+    self.volumeProgressView.trackTintColor = [UIColor clearColor];
     self.volumeProgressView.progress = 0.f;
     self.volumeProgressView.hidden = YES;
     self.volumeProgressView.alpha = 0.f;
