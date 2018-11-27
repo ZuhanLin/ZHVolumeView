@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign) float value;
 @property (nonatomic, strong) UIColor *progressViewTintColor;
+@property (nonatomic, assign) float progressViewHeight;
 
 @end

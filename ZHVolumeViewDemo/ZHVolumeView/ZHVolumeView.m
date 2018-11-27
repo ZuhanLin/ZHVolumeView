@@ -8,6 +8,7 @@
 
 #import "ZHVolumeView.h"
 #import <MediaPlayer/MPVolumeView.h>
+#import <AVFoundation/AVFAudio.h>
 
 @interface ZHVolumeView ()
 
@@ -45,6 +46,10 @@
 
 - (void)customInit
 {
+    _value = 0.f;
+    _progressViewTintColor = [UIColor whiteColor];
+    _progressViewHeight = 1.f;
+    
     // init systemVolumeView
     self.systemVolumeView = [[MPVolumeView alloc] init];
     self.systemVolumeView.showsRouteButton = NO;
@@ -54,6 +59,7 @@
     [self.systemVolumeView setFrame:CGRectMake(-10000, -10000, 10, 10)];
     
     [self addSubview:self.systemVolumeView];
+    [self.systemVolumeView userActivity];
     
     for (UIView *view in self.systemVolumeView.subviews) {
         if ([view isKindOfClass:NSClassFromString(@"MPVolumeSlider")]) {
@@ -62,11 +68,18 @@
         }
     }
     
+    // set default volume
+    float systemVolume = [[AVAudioSession sharedInstance] outputVolume];
+    [self setValue:systemVolume];
+    
+    // set default volume value 0.5
+//    [self.systemVolumeSlider setValue:0.5];
+    
     // init volumeProgressView
     self.volumeProgressView = [[UIProgressView alloc] init];
-    self.volumeProgressView.tintColor = [UIColor whiteColor];
+    self.volumeProgressView.tintColor = _progressViewTintColor;
     self.volumeProgressView.trackTintColor = [UIColor clearColor];
-    self.volumeProgressView.progress = 0.f;
+    self.volumeProgressView.progress = _value;
     self.volumeProgressView.hidden = YES;
     self.volumeProgressView.alpha = 0.f;
     [self addSubview:self.volumeProgressView];
@@ -106,24 +119,23 @@
     [super layoutSubviews];
     
     self.volumeProgressView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 2);
+    self.volumeProgressView.transform = CGAffineTransformMakeScale(1.0, _progressViewHeight / 2.0);
 }
 
 - (void)setProgressValue:(float)value
 {
+    _value = value;
+    
     [self.volumeProgressView setProgress:value animated:YES];
     
     [self showProgressView:YES];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideProgressView) object:nil];
-    [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:3];
+    [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:2];
 }
 
 - (void)showProgressView:(BOOL)animated
 {
-    if (self.volumeProgressView.hidden == NO) {
-        return;
-    }
-    
     self.volumeProgressView.hidden = NO;
     
     if (animated) {
@@ -144,11 +156,13 @@
         return;
     }
     
-    [UIView animateWithDuration:0.8
+    [UIView animateWithDuration:0.6
                      animations:^{
                          self.volumeProgressView.alpha = 0.f;
                      } completion:^(BOOL finished) {
-                         self.volumeProgressView.hidden = YES;
+                         if (finished) {
+                             self.volumeProgressView.hidden = YES;
+                         }
                      }];
 
 }

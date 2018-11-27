@@ -20,10 +20,10 @@
     
     ZHVolumeView *volumeView = [[ZHVolumeView alloc] init];
     volumeView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 2, [UIScreen mainScreen].bounds.size.width, 2);
-    volumeView.progressViewTintColor = [UIColor redColor];
+    volumeView.progressViewTintColor = [UIColor greenColor];
+    volumeView.progressViewHeight = 2.f;
     
     [self.view addSubview:volumeView];
-    
     
 }
 

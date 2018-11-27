@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files  = "ZHVolumeViewDemo/ZHVolumeView/*.{h,m}"
 
 
-  s.frameworks = "MediaPlayer", "Foundation", "UIKit"
+  s.frameworks = "MediaPlayer", "Foundation", "UIKit", "AVFoundation"
   s.requires_arc = true
 
 end
